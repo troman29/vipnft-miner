@@ -29,4 +29,4 @@ npx ts-node main.ts
 
 ```
 
-### For any questions contact me in Telegram @qpwedev
+### For any questions contact me in Telegram @troman29
