@@ -11,6 +11,7 @@ dotenv.config();
 const MY_ADDRESS = process.env.MY_ADDRESS!
 const IS_TESTNET = process.env.IS_TESTNET === '1';
 const MNEMONIC = (process.env.MNEMONIC!).split(' ');
+const TONCONSOLE_BEARER = process.env.TONCONSOLE_BEARER;
 
 const TON_URL = IS_TESTNET ? 'https://testnet.toncenter.com/api/v2/jsonRPC' : 'https://toncenter.com/api/v2/jsonRPC';
 const TONAPIIO_URL = IS_TESTNET ? 'https://testnet.tonapi.io/v2' : 'https://tonapi.io/v2';
@@ -29,7 +30,9 @@ async function getParams(address: string) {
     {
       headers: {
         accept: "application/json",
-        Authorization: "Bearer " + process.env.TONCONSOLE_BEARER,
+        ...(TONCONSOLE_BEARER && {
+          Authorization: "Bearer " + TONCONSOLE_BEARER,
+        })
       },
     }
   );
