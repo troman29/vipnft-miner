@@ -9,19 +9,23 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const MY_ADDRESS = process.env.MY_ADDRESS!
-const MINTER_ADDRESS = process.env.MINTER_ADDRESS!
+const IS_TESTNET = process.env.IS_TESTNET === '1';
 const MNEMONIC = (process.env.MNEMONIC!).split(' ');
+
+const TON_URL = IS_TESTNET ? 'https://testnet.toncenter.com/api/v2/jsonRPC' : 'https://toncenter.com/api/v2/jsonRPC';
+const TONAPIIO_URL = IS_TESTNET ? 'https://testnet.tonapi.io/v2' : 'https://tonapi.io/v2';
+const GIVER_ADDRESS = IS_TESTNET ? 'EQDe1EaGTLsqY5K_lQcqViPXxBg6ANjlZ3v4PxzaQkolOqW8' : '';
 
 const execAsync = promisify(exec);
 
 const client = new TonClient({
-  endpoint: 'https://toncenter.com/api/v2/jsonRPC',
+  endpoint: TON_URL,
   apiKey: process.env.TONCENTER_API_KEY
 });
 
 async function getParams(address: string) {
   const res = await fetch(
-    `https://tonapi.io/v2/blockchain/accounts/${address}/methods/get_pow_params`,
+    `${TONAPIIO_URL}/blockchain/accounts/${address}/methods/get_pow_params`,
     {
       headers: {
         accept: "application/json",
@@ -47,8 +51,8 @@ function parseParams(params: any[]) {
 
 async function runCommandAndHandleResult(): Promise<void> {
   try {
-    const params = parseParams(await getParams(MINTER_ADDRESS));
-    const command = `crypto/pow-miner -vv -w30 -t500 ${MY_ADDRESS} ${params} ${MINTER_ADDRESS} mined.boc`;
+    const params = parseParams(await getParams(GIVER_ADDRESS));
+    const command = `bin/pow-miner-linux-amd64 -vv -w30 -t500 ${MY_ADDRESS} ${params} ${GIVER_ADDRESS} mined.boc`;
 
     console.log("[Starting mining]")
     const { stdout, stderr } = await execAsync(command, { timeout: 1000 * 1000 }); // 100 seconds timeout
@@ -72,7 +76,7 @@ async function runCommandAndHandleResult(): Promise<void> {
       secretKey: keyPair.secretKey,
       messages: [internal({
         value: '0.05',
-        to: MINTER_ADDRESS,
+        to: GIVER_ADDRESS,
         body: cell
       })]
     });

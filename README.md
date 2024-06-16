@@ -1,30 +1,22 @@
-# [Gramcoin](https://gramcoin.org) Miner
+# [VIP NFT](https://tonnames.org) Miner
 
 ## Setup
 
-1. [Compile TON from sources](https://docs.ton.org/develop/howto/compile)
-2. Navigate to your build folder (ton-build)
-
-```bash
-cd ton-build
-```
-
-3. Fill out all env variables (check .example.env)
+1. Fill out all env variables in .env file (check .example.env)
 
 ```env
-TONCENTER_API_KEY= "" # from https://t.me/tonapibot
-TONCONSOLE_BEARER= "" # from https://tonconsole.com/dashboard
+TONCENTER_API_KEY="" # from https://t.me/tonapibot
+TONCONSOLE_BEARER="" # from https://tonconsole.com/dashboard
+IS_TESTNET=0 # set 1 for testnet
 
-MY_ADDRESS = "UQAwtgXjB-Zl5MtMQPdW6BcqIGB0oTYhrSb8lsLFw0EOUJCs" # your wallet address v4
-MINTER_ADDRESS = "EQDIDs45shbXRwhnXoFZg303PkG2CihbVvQXw1k0_yVIqxcA" # from https://gramcoin.org/Grams-HOWTO.txt
-
-MNEMONIC = "bla bla bla" # 24 words
+MY_ADDRESS="UQAwtgXjB-Zl5MtMQPdW6BcqIGB0oTYhrSb8lsLFw0EOUJCs" # your wallet address v4
+MNEMONIC="bla bla bla" # 24 words
 ```
 
-4. Run commands in terminal
+2. Run commands in terminal
 
 ```bash
-pnpm i
+npm i
 npx ts-node main.ts
 
 ```
