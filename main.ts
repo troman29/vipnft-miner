@@ -15,7 +15,7 @@ const TONCONSOLE_BEARER = process.env.TONCONSOLE_BEARER;
 
 const TON_URL = IS_TESTNET ? 'https://testnet.toncenter.com/api/v2/jsonRPC' : 'https://toncenter.com/api/v2/jsonRPC';
 const TONAPIIO_URL = IS_TESTNET ? 'https://testnet.tonapi.io/v2' : 'https://tonapi.io/v2';
-const GIVER_ADDRESS = IS_TESTNET ? 'EQDe1EaGTLsqY5K_lQcqViPXxBg6ANjlZ3v4PxzaQkolOqW8' : '';
+const GIVER_ADDRESS = IS_TESTNET ? 'EQDe1EaGTLsqY5K_lQcqViPXxBg6ANjlZ3v4PxzaQkolOqW8' : 'EQAzwqEwOx1EJTLLlrEhLNSW3eGUgQYgHOjMtvtO89HpOfHA';
 
 const execAsync = promisify(exec);
 
